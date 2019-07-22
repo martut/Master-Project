@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BoookingAIOProject.DTO.Room>
+
+@{
+    ViewBag.Title = "Pokoje";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col pl-0"><h2>Pokoje</h2></div>
+        <div class="col float-right pr-0">
+            <p class="float-right">
+                <input type="button" class="btn btn-primary" value="Dodaj Pokój" onclick="location.href = '@Url.Action("Create","Room")'"/>
+            </p>
+        </div>
+    </div>
+
+</div>
+<div class="mt-4 table-responsive">
+    <table class="table border rounded background-white">
+        <tr>
+            <th>
+                @Html.DisplayName("Pokój")
+            </th>
+            <th>
+                @Html.DisplayName("Dorosłych")
+            </th>
+            <th>
+                @Html.DisplayName("Dzieci")
+            </th>
+            <th>
+                @Html.DisplayName("Cena")
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.RoomNumber.ToString() , "Edit", new { id = item.Id })
+                   
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdultsCapacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChildrenCapacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                @*<td>
+                |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>*@
+            </tr>
+        }
+
+    </table>
+</div>

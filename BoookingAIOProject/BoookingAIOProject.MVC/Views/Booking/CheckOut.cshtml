@@ -1,0 +1,125 @@
+﻿@model BoookingAIOProject.MVC.ViewModel.CheckOutViewModel
+
+@{
+    ViewBag.Title = "Check Out";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col pl-0">
+            <h2>
+                Wymeldowanie
+            </h2>
+        </div>
+    </div>
+    <div class="row border-bottom mt-4">
+        <div class="col-6">
+            <h5 class="my-3">Wymeldownie @Model.Booking.GuestFirstName @Model.Booking.GuestLastName</h5>
+            <div class="form-group row">
+                <div class="col-sm-6"> <i class="fas fa-home"></i>
+                    @Html.Label("Pokój")
+                </div>
+                <div class="col-sm-6">
+                    @Html.DisplayFor(m => m.Booking.Room.RoomNumber, new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control"
+
+                        }
+                    })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6"> <i class="fas fa-chevron-circle-right"></i>
+                    @Html.Label("Check-In")
+                </div>
+                <div class="col-sm-6">
+                    @Model.Booking.CheckInDate.ToShortDateString()
+                </div>
+            </div><div class="form-group row">
+                <div class="col-sm-6"> <i class="fas fa-chevron-circle-left"></i>
+                    @Html.Label("Check-Out")
+                </div>
+
+                <div class="col-sm-6">
+                    @Model.Booking.CheckOutDate.ToShortDateString()
+                </div>
+            </div><div class="form-group row">
+                <div class="col-sm-6"> <i class="fas fa-bed"></i>
+                    @Html.Label("Ilość Nocy")
+                </div>
+                <div class="col-sm-6">
+                    @Model.DaysOfStay
+                </div>
+            </div><div class="form-group row">
+                <div class="col-sm-6"> <i class="far fa-credit-card"></i>
+                    @Html.Label("Cena")
+                </div>
+                <div class="col-sm-6">
+                    PLN @Model.Booking.Room.Price za noc
+                </div>
+            </div>
+        </div>
+        <div class="col-6 border-left">
+            <h5 class="">Udogodnienia w pokoju</h5>
+            <ul>
+                @foreach (var Item in Model.RoomServices)
+                {
+                    <li>@Item.RoomServiceType.Name @Item.Amount x (@Item.RoomServiceType.Price PLN)</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="my-3">
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <i class="fas fa-euro-sign"></i>
+                @Html.Label("Cena końcowa za pokój")
+            </div>
+            <div class="col-sm-3">
+                @Model.DaysOfStay nocy x @Model.Booking.Room.Price PLN
+            </div>
+            <div class="col-sm-3">
+                @Model.PayForDays PLN
+            </div>
+        </div>
+
+        @foreach (var service in Model.RoomServices)
+        {
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <i class="fas fa-book"></i>
+                    @service.RoomServiceType.Name
+                </div>
+                <div class="col-sm-3">
+                    @service.Date
+                </div>
+                <div class="col-sm-3">
+                    @(service.RoomServiceType.Price * service.Amount)PLN
+                </div>
+            </div>
+        }
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <i class="fas fa-shopping-cart"></i>
+                @Html.Label("Do zapłaty")
+
+            </div>
+            <div class="col-sm-3">
+                <a class="border-top">@Model.TotalPay PLN</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        @Html.ActionLink("Potwierdź Wymeldowanie", "CheckOutConfirmed", new {id= Model.Booking.Id}, new {
+       @class = "btn  btn-primary"} )
+        @Html.ActionLink("Anuluj","Index", new { area = "" }, new {
+       @class = "btn-outline-primary btn ml-3"} )
+    </div>
+</div>
+
+

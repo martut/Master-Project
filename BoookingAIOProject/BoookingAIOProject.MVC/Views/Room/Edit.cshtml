@@ -1,0 +1,150 @@
+﻿@model BoookingAIOProject.MVC.ViewModel.RoomEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Pokój @Model.Room.RoomNumber</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Room.Id)
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Room.RoomNumber, "Numer Pokoju", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Room.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Room.RoomNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Room.AdultsCapacity, "Ilość dorosłych", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Room.AdultsCapacity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Room.AdultsCapacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Room.ChildrenCapacity, "Ilość dzieci", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Room.ChildrenCapacity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Room.ChildrenCapacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Room.Price, "Cena", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Room.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Room.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="container row">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <div class="ml-4">
+                    @Html.ActionLink("Anuluj", "Index", new {
+                        area = ""
+                    }, new {
+                        @class = "btn btn-outline-primary"
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<hr />
+
+
+<div class="">
+    <div class="col pl-0"><h2>Udogodnienia w pokoju</h2></div>
+
+    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#exampleModalCenter">
+        Dodaj Nowe
+    </button>
+
+    <table class="table border rounded background-white">
+        <tr>
+            <th>
+                @Html.DisplayName("Udogodnienie")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.RoomItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Usuń", "Delete", new {
+                        id = item.Id , roomId = Model.Room.Id
+                    })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header popupTopColor">
+                <h5 class="modal-title " id="exampleModalLongTitle">Nowe Udogodnienie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="whiteColor" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col pl-0"><h3>Udogodnienia do pokoju @Model.Room.RoomNumber</h3></div>
+
+                @using (Html.BeginForm("RoomItem", "Room",  FormMethod.Post ))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model=> model.Room.Id)
+
+                    <div class="form-horizontal">
+                        <div class="form-group row mt-3">
+                            @Html.LabelFor(model => model.SelectedItemId, "Udogodnienie ", htmlAttributes: new {
+                                @class = "col-sm-2 col-form-label"
+                            })
+                            <div class="offset-sm-1 col-sm-9">
+                                @Html.DropDownListFor(model => model.SelectedItemId, Model.Items, new { @class = "btn dropdown-toggle" })
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <input type="submit"  value="Zapisz" class="btn btn-primary" />
+                    <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Anuluj</button>
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

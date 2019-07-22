@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Booking </title>
+</head>
+<body>
+    <div style="text-align: center;"><H1>API</H1></div>
+    <h3>Room</h3>
+    <a href="http://localhost:55552/api/room/5">http://localhost:55552/api/room/5</a>
+    <p>
+        {
+        "id": 5,
+        "roomNumber": 4,
+        "adultsCapacity": 2,
+        "childrenCapacity": 1,
+        "price": 125
+        }
+    </p>
+
+    <h3>BookingStatus</h3>
+    <a href="http://localhost:55552/api/bookingstatus/1">http://localhost:55552/api/bookingstatus/1</a>
+    <p>
+        {
+        "id": 1,
+        "label": "Booked",
+        "order": 1,
+        "isActive": true
+        }
+    </p>
+
+    <h3>Booking</h3>
+    <a href="http://localhost:55552/api/booking/1">http://localhost:55552/api/booking/1</a>
+    <p>
+        {
+        "id": 1,
+        "guestLastName": "Wir",
+        "guestFirstName": "Mar",
+        "checkInDate": "2019-02-13T00:00:00",
+        "checkOutDate": "2019-02-16T00:00:00",
+        "numberOfAdults": 2,
+        "numberOfChildren": 2,
+        "roomId": 2,
+        "bookingStatusId": 1
+        }
+    </p>
+
+    <h3>Item</h3>
+    <a href="http://localhost:55552/api/item/1">http://localhost:55552/api/item/1</a>
+    <p>
+        {
+        "id": 1,
+        "name": "Tv"
+        }
+    </p>
+
+    <h3>RoomItem</h3>
+    <a href="http://localhost:55552/api/roomitem/1">http://localhost:55552/api/roomitem/1</a>
+    <p>
+        {
+        "id": 1,
+        "roomId": 1,
+        "itemId": 1
+        }
+    </p>
+
+    <h3>RoomServiceType</h3>
+    <a href="http://localhost:55552/api/roomservicetype/2">http://localhost:55552/api/roomservicetype/2</a>
+    <p>
+        {
+        "id": 2,
+        "name": "Batonik",
+        "isActive": true
+        }
+    </p>
+
+    <h3>RoomService</h3>
+    <a href="http://localhost:55552/api/roomservice/2">http://localhost:55552/api/roomservice/2</a>
+    <p>
+        {
+        "id": 2,
+        "bookingId": 1,
+        "roomServiceTypeId": 1,
+        "date": "2019-02-18T00:00:00",
+        "amount": 100
+        }
+    </p>
+
+</body>
+</html>

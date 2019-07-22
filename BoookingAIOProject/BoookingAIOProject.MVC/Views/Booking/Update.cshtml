@@ -1,0 +1,134 @@
+﻿@model BoookingAIOProject.MVC.ViewModel.BookingViewModel
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2 class="mb-4">Rezerwacja dla @Model.Booking.GuestLastName</h2>
+
+
+<div class="row">
+
+    <div class="col-8">
+        <form>
+            <div class="form-group">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.GuestLastName, "Nazwisko", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.GuestLastName, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.GuestFirstName, "Imię", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.GuestFirstName, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.CheckInDate, "Check-In", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.CheckInDate.Date, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.CheckOutDate, "Check-Out", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.CheckOutDate, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.NumberOfAdults, "Ilość dorosłych", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.NumberOfAdults, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Booking.NumberOfChildren, "Ilość dzieci", new {
+                        @class = "col-sm-3 col-form-label"
+                    })
+
+                    <div class="col-sm-9">
+                        @Html.EditorFor(model => model.Booking.NumberOfChildren, new {
+                            htmlAttributes = new {
+                                @class = "form-control",
+                                @disabled = "disabled"
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Room.Id, "Pokój", new {
+                        @class = "col-sm-3 col-form-label"
+                     } )
+                    <div class="col-sm-9">
+                        @Model.Room.RoomNumber za @Model.Room.Price zł za noc
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+        <h5 class="">Udogodnienia w pokoju</h5>
+        <ul>
+            @foreach (var roomItem in Model.RoomItems)
+            {
+                <li>@roomItem.Item.Name</li>
+            }
+        </ul>
+
+    </div>
+</div>
+<p>
+    @if (Model.Booking.BookingStatusId == 1)
+    {
+        @Html.ActionLink("Zamelduj","CheckIn", new {id= Model.Booking.Id}, new {
+       @class = "btn  btn-primary"} )
+        @Html.ActionLink("Anuluj Rezerwacje", "BookingCancelAsync", new {id= Model.Booking.Id}, new {
+       @class = "mx-3 btn btn-outline-primary"
+   } )
+    }
+    @if (Model.Booking.BookingStatusId == 2) {
+        @Html.ActionLink("Wymelduj", "CheckOut", new {id = Model.Booking.Id}, new { @class = "btn btn-primary"})
+    }
+    </p>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BoookingAIOProject.DTO.Booking>
+
+@{
+    ViewBag.Title = "Rezerwacje";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col pl-0"><h2>Rezerwacje</h2></div>
+        <div class="col float-right pr-0">
+            <p class="float-right">
+                @Html.ActionLink("Stwórz nową rezerwację", "Create",new {
+                    area = ""
+                } , new {@class= "btn btn-outline-primary" })
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-4 table-responsive">
+    <table class="table border rounded background-white">
+        <tr>
+            <th>
+                @Html.DisplayName("Nazwisko")
+            </th>
+            <th>
+                @Html.DisplayName("Imię")
+            </th>
+            <th>
+                @Html.DisplayName("Pokój")
+            </th>
+            <th>
+                @Html.DisplayName("Check-In")
+            </th>
+            <th>
+                @Html.DisplayName("Check-Out")
+            </th>
+            <th>
+                @Html.DisplayName("Status")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.GuestLastName, "Update", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuestFirstName)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Room.RoomNumber.ToString(), "RoomRedirect", new { id = item.Room.Id })
+                </td>
+                <td>
+                    @item.CheckInDate.ToShortDateString()
+                </td>
+                <td>
+                    @item.CheckOutDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingStatus.Label)
+                </td>
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+</div>
